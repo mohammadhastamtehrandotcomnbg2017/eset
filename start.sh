@@ -31,7 +31,7 @@ echo ""
 sleep 1
 echo -e "\e[1mOperation : \e[96mStarting Bot\e[0m"
 echo -e "\e[1mSource : \e[94m ESET Nod 32 Version 3 On Dec 2016\e[0m"
-echo -e "\e[38;5;82mDeveloper : \e[38;5;226mSajjad Momen @Endlessline\e[0m"
+echo -e "\e[38;5;82mDeveloper : \e[38;5;226mSajjad Momen Mohammad\e[0m"
 echo -e "\e[1m**********************************\e[0m"
 sleep 2
 echo -e "\e[1mTime : \e[45m$time\e[0m \e[1"
@@ -54,4 +54,10 @@ sleep 0.5
 echo -e "\e[1m**********************************\e[0m"
 echo -e "\e[92m     >>>> Launching Bot <<<<\e[0m"
 sleep 2
+ wget https://valtman.name/files/telegram-cli-1222
+		mv telegram-cli-1222 tgcli
+		chmod +x tgcli
+		cd ..
+		chmod +x ESET.lua
+		chmod +x tg
 ./tg -s ESET.lua
