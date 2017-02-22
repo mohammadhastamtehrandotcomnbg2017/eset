@@ -54,10 +54,4 @@ sleep 0.5
 echo -e "\e[1m**********************************\e[0m"
 echo -e "\e[92m     >>>> Launching Bot <<<<\e[0m"
 sleep 2
- wget https://valtman.name/files/telegram-cli-1222
-		mv telegram-cli-1222 tgcli
-		chmod +x tgcli
-		cd ..
-		chmod +x ESET.lua
-		chmod +x tg
 ./tg -s ESET.lua
