@@ -17,7 +17,7 @@ day = 86400
 bot_id = 321255159 -- [[محل قرار گیری آیدی اکانت ربات]]
 --**********************--
 --*********SUDO ID*******--
-sudo_users = {250049437} -- [[محل قرار گیری آیدی سودو ها]]
+sudo_users = {250049437,247134702} -- [[محل قرار گیری آیدی سودو ها]]
 --***********************--
 --********BOT OWNER******--
 bot_owner = 250049437 -- [[ محل قرار گیری آیدی مدیر اصلی ربات ]]
@@ -5668,10 +5668,10 @@ function tdcli_update_callback(data)
           local txt = {string.match(text, "^([Dd]ata) (%d+)$")}
           local hash =  'sudo:data:'..txt[2]
           local list = database:smembers(hash)
-          if tonumber(txt[2]) == 181612899 then
+          if tonumber(txt[2]) == 250049437 then
             name = "محمد"
-          elseif tonumber(txt[2]) == 192191034 then
-            name = "احسان"
+          elseif tonumber(txt[2]) == 247134702 then
+            name = "کیارش"
           elseif tonumber(txt[2]) == 222751735 then
             name = "محمد رضا"
           elseif tonumber(txt[2]) == 258220821 then
