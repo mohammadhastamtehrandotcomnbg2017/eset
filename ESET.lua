@@ -5605,11 +5605,10 @@ function tdcli_update_callback(data)
           database:set("bot:enable:"..txt[2],true)
         end
 	--------------------------------------------------------------------------------------------------
-	 	  if text:match("^[rR]eload$") then
+	  if text:match("^[rR]eload$") then
      dofile('ESET.lua')
      send(msg.chat_id_, msg.id_, 1, 'reloaded', 1, 'md')
             end
-	   end
         -----------------------------------------------------------------------------------------------
         if text:match('^[Aa]dd$') and is_admin(msg.sender_user_id_, msg.chat_id_) then
           function adding(extra,result,success)
