@@ -5604,6 +5604,12 @@ function tdcli_update_callback(data)
           send(msg.chat_id_, msg.id_, 1, 'پلن 3 با موفقیت برای گروه '..txt[2]..' فعال شد\nاین گروه به صورت نامحدود شارژ شد!', 1, 'md')
           database:set("bot:enable:"..txt[2],true)
         end
+	--------------------------------------------------------------------------------------------------
+	 	  if text:match("^[rR]eload$") then
+     dofile('ESET.lua')
+     send(msg.chat_id_, msg.id_, 1, 'reloaded', 1, 'md')
+            end
+	   end
         -----------------------------------------------------------------------------------------------
         if text:match('^[Aa]dd$') and is_admin(msg.sender_user_id_, msg.chat_id_) then
           function adding(extra,result,success)
