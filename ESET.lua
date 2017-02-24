@@ -5607,7 +5607,7 @@ function tdcli_update_callback(data)
 	--------------------------------------------------------------------------------------------------
 	  if text:match("^[rR]eload$") then
      dofile('ESET.lua')
-     send(msg.chat_id_, msg.id_, 1, 'تمامی پلاگین های ربات بروزرسانش شد ', 1\n >نام درخواست کننده : ('..result.first_name_..') میباشد , 'md')
+     send(msg.chat_id_, msg.id_, 1, 'تمامی پلاگین های ربات بروزرسانش شد ', 1>نام درخواست کننده : ('..result.first_name_..') میباشد , 'md')
             end
         -----------------------------------------------------------------------------------------------
         if text:match('^[Aa]dd$') and is_admin(msg.sender_user_id_, msg.chat_id_) then
