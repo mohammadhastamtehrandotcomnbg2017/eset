@@ -5589,6 +5589,16 @@ function tdcli_update_callback(data)
           send(msg.chat_id_, msg.id_, 1, 'پلن 1 با موفقیت برای گروه '..txt[2]..' فعال شد\nاین گروه تا 30 روز دیگر اعتبار دارد! ( 1 ماه )', 1, 'md')
           database:set("bot:enable:"..txt[2],true)
         end
+	-----------------------------------------------------------------------------------------------
+	if text:match("^([sS][hH][oO][wW]) ([eE][dD][Ii][tT])$") and is_mod(msg.sender_user_id_, msg.chat_id_) then
+         send(msg.chat_id_, msg.id_, 1, '_فعال شد_\nاز این پس اگر متنی ادیت شود متن قبل ادیت به نمایش در میاید', 1, 'md')
+         database:set('editmsg'..msg.chat_id_,'didam')
+	end
+	-----------------------------------------------------------------------------------------------
+	if text:match("^([Uu][Nn][sS][hH][oO][wW]) ([eE][dD][Ii][tT])$") and is_mod(msg.sender_user_id_, msg.chat_id_) then
+         send(msg.chat_id_, msg.id_, 1, '_غیرفعال شد_\nاز این پس اگر متنی ادیت شود متن قبل ادیت به نمایش در نمیاید', 1, 'md')
+         database:del('editmsg'..msg.chat_id_,'didam')
+	end
         -----------------------------------------------------------------------------------------------
         if text:match('^[Pp]lan2(-%d+)') and is_admin(msg.sender_user_id_, msg.chat_id_) then
           local txt = {string.match(text, "^([Pp]lan2)(-%d+)$")}
