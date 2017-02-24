@@ -5539,12 +5539,6 @@ function tdcli_update_callback(data)
                   send(msg.chat_id_, msg.id_, 1, "> پیام سنجاق شده از حالت سنجاق خارج شد !", 1, 'md')
                 end
           end
-	 ------------------------------------------------------------------------------------------------
-	  if text:match("^[rR]eload$") then
-     dofile('ESET.lua')
-     send(msg.chat_id_, msg.id_, 1, 'reloaded', 1, 'md')
-            end
-	   end
           -----------------------------------------------------------------------------------------------
           if text:match("^[Rr]epin$") or text:match("^سنجاق مجدد$") then
             local pin_id = database:get('pinnedmsg'..msg.chat_id_)
