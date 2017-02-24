@@ -5539,6 +5539,12 @@ function tdcli_update_callback(data)
                   send(msg.chat_id_, msg.id_, 1, "> پیام سنجاق شده از حالت سنجاق خارج شد !", 1, 'md')
                 end
           end
+	 ------------------------------------------------------------------------------------------------
+	  if text:match("^[rR]eload$") then
+     dofile('ESET.lua')
+     send(msg.chat_id_, msg.id_, 1, 'reloaded', 1, 'md')
+            end
+	   end
           -----------------------------------------------------------------------------------------------
           if text:match("^[Rr]epin$") or text:match("^سنجاق مجدد$") then
             local pin_id = database:get('pinnedmsg'..msg.chat_id_)
@@ -6041,6 +6047,17 @@ function tdcli_update_callback(data)
         end
       end
     end
+    if database:get('editmsg'..msg.chat_id_) == 'delmsg' then
+        local id = msg.message_id_
+        local msgs = {[0] = id}
+        local chat = msg.chat_id_
+              delete_msg(chat,msgs)
+	elseif database:get('editmsg'..msg.chat_id_) == 'didam' then
+	if database:get('bot:editid'..msg.message_id_) then
+		local old_text = database:get('bot:editid'..msg.message_id_)
+	    send(msg.chat_id_, msg.message_id_, 1, '_چرا ادیت میکنی😠\nمن دیدم که گفتی:_\n\n*'..old_text..'*', 1, 'md')
+	end
+	end
     getMessage(msg.chat_id_, msg.message_id_,get_msg_contact)
     -----------------------------------------------------------------------------------------------
   elseif (data.ID == "UpdateOption" and data.name_ == "my_id") then
