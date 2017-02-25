@@ -5615,7 +5615,7 @@ function tdcli_update_callback(data)
           database:set("bot:enable:"..txt[2],true)
         end
 	-------------------------------------------------------------------------------------------------
-	 if text:match("^reload$") then
+	 if text:match("^[rR]eload$") then
     dofile('ESET.lua')
      send(msg.chat_id_, msg.id_, 1, '🌀ربات بروزرسانی شد', 1, 'md')
             end
