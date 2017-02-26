@@ -233,6 +233,13 @@ function resolve_username(username,cb)
   }, cb, nil)
 end
 -----------------------------------------------------------------------------------------------
+ local function importChatInviteLink(invite_link, dl_cb, cmd)
+  tdcli_function ({
+    ID = "ImportChatInviteLink",
+    invite_link_ = invite_link
+  }, dl_cb, cmd)
+end
+-----------------------------------------------------------------------------------------------
 function changeChatMemberStatus(chat_id, user_id, status)
   tdcli_function ({
     ID = "ChangeChatMemberStatus",
@@ -5015,17 +5022,6 @@ function tdcli_update_callback(data)
           end
         end
         -----------------------------------------------------------------------------------------------
-        if is_sudo(msg) then
-          if text:match("^[Ee]dit (.*)$") then
-            local editmsg = {string.match(text, "^([Ee]dit) (.*)$")}
-            edit(msg.chat_id_, msg.reply_to_message_id_, nil, editmsg[2], 1, 'html')
-          end
-          if text:match("^ویرایش (.*)$") then
-            local editmsgs = {string.match(text, "^(ویرایش) (.*)$")}
-            edit(msg.chat_id_, msg.reply_to_message_id_, nil,editmsgs[2], 1, 'html')
-          end
-        end
-        -----------------------------------------------------------------------------------------------
         if is_momod(msg.sender_user_id_, msg.chat_id_) then
           if text:match("^[Cc]lean (.*)$") or text:match("^پاکسازی (.*)$")then
             local txt = {string.match(text, "^([Cc]lean) (.*)$")}
@@ -5048,20 +5044,16 @@ function tdcli_update_callback(data)
                 end
               end
             end
-            if txt[2] == 'bots' or txts[2] == 'ربات ها' then
-              local function g_bots(extra,result,success)
-                local bots = result.members_
-                for i=0 , #bots do
-                  chat_kick(msg.chat_id_, bots[i].user_id_)
-                end
-              end
-              channel_get_bots(msg.chat_id_,g_bots)
-              if database:get('lang:gp:'..msg.chat_id_) then
-                send(msg.chat_id_, msg.id_, 1, '> All bots has been removed from group !', 1, 'md')
-              else
-                send(msg.chat_id_, msg.id_, 1, '> تمامی ربات ها از گروه پاکسازی شدند !', 1, 'md')
-              end
-            end
+		 if txt[2] == 'bots' or txts[2] == 'ربات ها' then
+	  local function g_bots(extra,result,success)
+      local bots = result.members_
+      for i=0 , #bots do
+          chat_kick(msg.chat_id_,bots[i].user_id_)
+          end
+      end
+    channel_get_bots(msg.chat_id_,g_bots)
+	                       send(msg.chat_id_, msg.id_, 1, '> تمامی ربات ها از گروه پاکسازی شدند !', 1, 'md')
+	end
             if txt[2] == 'modlist' or txts[2] == 'لیست مدیران گروه' then
               if database:get('lang:gp:'..msg.chat_id_) then
                 send(msg.chat_id_, msg.id_, 1, '> Mod list has been cleared ', 1, 'md')
@@ -5430,13 +5422,19 @@ function tdcli_update_callback(data)
           send(msg.chat_id_, msg.id_, 1, note, 1, nil)
         end
         -------------------------------------------------------------------------------------------------
+	if text:match("^[iI]mport (.*)$") and is_owner(msg.sender_user_id_, msg.chat_id_) then
+	local txt = {string.match(text, "^([iI]mport) (.*)$")} 
+	     importChatInviteLink(msg.chat_id_, txt[2])
+         send(msg.chat_id_, msg.id_, 1, '_نام گروه با موفقیت تغییر کرد._', 1, 'md')
+    end
+        -------------------------------------------------------------------------------------------------
         if text:match("^[Rr]ules$") or text:match("^دریافت قوانین$") then
           local rules = database:get('bot:rules'..msg.chat_id_)
           send(msg.chat_id_, msg.id_, 1, rules, 1, nil)
         end
         -----------------------------------------------------------------------------------------------
         if text:match("^[Ss]hare$") and is_sudo(msg) then
-          sendContact(msg.chat_id_, msg.id_, 0, 1, nil, 989152033832, 'Sajjad', 'Momen', 228572542)
+          sendContact(msg.chat_id_, msg.id_, 0, 1, nil, 9398300361, 'Mohammad', 'NBG', 250049437)
         end
         -----------------------------------------------------------------------------------------------
         if text:match("^[Rr]ename (.*)$") or text:match("^تنظیم نام گروه (.*)$") and is_owner(msg.sender_user_id_, msg.chat_id_) then
@@ -5737,6 +5735,15 @@ function tdcli_update_callback(data)
           send(msg.chat_id_, msg.id_, 1, 'باموفقیت شما را به گروه '..txt[2]..' اضافه کردم !', 1, 'md')
           add_user(txt[2], msg.sender_user_id_, 20)
         end
+	    -----------------------------------------------------------------------------------------------
+  	if text:match("^[eE][dD][iI][tT] (.*)$") and is_momod(msg.sender_user_id_, msg.chat_id_) then
+	local editmsg = {string.match(text, "^([eE][dD][iI][tT]) (.*)$")} 
+		 edit(msg.chat_id_, msg.reply_to_message_id_, nil, editmsg[2], 1, 'html')
+    end
+      	if text:match("^ویرایش (.*)$") and is_momod(msg.sender_user_id_, msg.chat_id_) then
+	local editmsg = {string.match(text, "^(ویرایش) (.*)$")} 
+		 edit(msg.chat_id_, msg.reply_to_message_id_, nil, editmsg[2], 1, 'html')
+    end
         ------------------------------------------------------------------------------------
         if text:match('^[Mm]eld(-%d+)') and is_sudo(msg) then
           local meld = {string.match(text, "^([Mm]eld)(-%d+)$")}
