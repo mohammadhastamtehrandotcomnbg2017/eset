@@ -5603,15 +5603,28 @@ function tdcli_update_callback(data)
           database:set("bot:enable:"..txt[2],true)
         end
 	-----------------------------------------------------------------------------------------------
-	if text:match("^([sS][hH][oO][wW]) ([eE][dD][Ii][tT])$") and is_mod(msg.sender_user_id_, msg.chat_id_) then
+	if text:match("^([sS][hH][oO][wW]) ([eE][dD][Ii][tT])$") and is_momod(msg.sender_user_id_, msg.chat_id_) then
          send(msg.chat_id_, msg.id_, 1, '_فعال شد_\nاز این پس اگر متنی ادیت شود متن قبل ادیت به نمایش در میاید', 1, 'md')
          database:set('editmsg'..msg.chat_id_,'didam')
 	end
 	-----------------------------------------------------------------------------------------------
-	if text:match("^([Uu][Nn][sS][hH][oO][wW]) ([eE][dD][Ii][tT])$") and is_mod(msg.sender_user_id_, msg.chat_id_) then
+	if text:match("^([Uu][Nn][sS][hH][oO][wW]) ([eE][dD][Ii][tT])$") and is_momod(msg.sender_user_id_, msg.chat_id_) then
          send(msg.chat_id_, msg.id_, 1, '_غیرفعال شد_\nاز این پس اگر متنی ادیت شود متن قبل ادیت به نمایش در نمیاید', 1, 'md')
          database:del('editmsg'..msg.chat_id_,'didam')
 	end
+        -----------------------------------------------------------------------------------------------
+	   if text:match("^[pp][ii][nn]$") and is_momod(msg.sender_user_id_, msg.chat_id_) then
+        local id = msg.id_
+        local msgs = {[0] = id}
+       pin(msg.chat_id_,msg.reply_to_message_id_,0)
+	   database:set('pinnedmsg'..msg.chat_id_,msg.reply_to_message_id_)
+	      send(msg.chat_id_, msg.id_, 1, '_پیام مورد نظر سنجاق گردید_', 1, 'md')
+   end
+   -----------------------------------------------------------------------------------------------
+   if text:match("^[uu][nn][pp][ii][nn]$") and is_momod(msg.sender_user_id_, msg.chat_id_) then
+         unpinmsg(msg.chat_id_)
+         send(msg.chat_id_, msg.id_, 1, '_پیام از  حالت سنجاق حذف گردید_', 1, 'md')
+   end
         -----------------------------------------------------------------------------------------------
         if text:match('^[Pp]lan2(-%d+)') and is_admin(msg.sender_user_id_, msg.chat_id_) then
           local txt = {string.match(text, "^([Pp]lan2)(-%d+)$")}
