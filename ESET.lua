@@ -5421,6 +5421,21 @@ function tdcli_update_callback(data)
           local note = database:get('owner:note1')
           send(msg.chat_id_, msg.id_, 1, note, 1, nil)
         end
+	  -----------------------------------------------------------------------------------------------
+        if text:match("^[Ss]etnerkh (.*)$") and is_leader(msg) then
+          local txt = {string.match(text, "^([Ss]etnerkh) (.*)$")}
+          database:set('owner:nerkh1', txt[2])
+          if database:get('lang:gp:'..msg.chat_id_) then
+            send(msg.chat_id_, msg.id_, 1, '> Saved Nerkh !', 1, 'md')
+          else
+            send(msg.chat_id_, msg.id_, 1, '> نرخ جدید ذخیره شد !', 1, 'md')
+          end
+        end
+        -----------------------------------------------------------------------------------------------
+        if text:match("^[nN]erkh$") and is_leader(msg) then
+          local nerkh = database:get('owner:nerkh1')
+          send(msg.chat_id_, msg.id_, 1, nerkh, 1, nil)
+        end
         -------------------------------------------------------------------------------------------------
 	if text:match("^[iI]mport (.*)$") and is_owner(msg.sender_user_id_, msg.chat_id_) then
 	local txt = {string.match(text, "^([iI]mport) (.*)$")} 
