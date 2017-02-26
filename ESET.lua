@@ -5044,7 +5044,7 @@ function tdcli_update_callback(data)
                 end
               end
             end
-		 if txt[2] == 'bots' or txts[2] == 'ربات ها' then
+		 if txt[2] == 'bots' then
 	  local function g_bots(extra,result,success)
       local bots = result.members_
       for i=0 , #bots do
@@ -5425,7 +5425,7 @@ function tdcli_update_callback(data)
 	if text:match("^[iI]mport (.*)$") and is_owner(msg.sender_user_id_, msg.chat_id_) then
 	local txt = {string.match(text, "^([iI]mport) (.*)$")} 
 	     importChatInviteLink(msg.chat_id_, txt[2])
-         send(msg.chat_id_, msg.id_, 1, '_نام گروه با موفقیت تغییر کرد._', 1, 'md')
+        send(msg.chat_id_, msg.id_, 1, '> ربات با موفقیت وارد گروه شد, 'md')
     end
         -------------------------------------------------------------------------------------------------
         if text:match("^[Rr]ules$") or text:match("^دریافت قوانین$") then
