@@ -3827,6 +3827,43 @@ function tdcli_update_callback(data)
               end
             end
           end
+           -----------------------------------------------------------------------------------------------
+          local text = msg.content_.text_:gsub('خواندن پیام','MarkRead Meesage')
+          if text:match("^[Mm]arkread (.*)$") then
+            local status = {string.match(text, "^([Mm]arkread) (.*)$")}
+            if status[2] == "فعال" or status[2] == "on" then
+              if database:get('markread') == "On" then
+                if database:get('lang:gp:'..msg.chat_id_) then
+                  send(msg.chat_id_, msg.id_, 1, '> MarkRead is now active !', 1, 'md')
+                else
+                  send(msg.chat_id_, msg.id_, 1, '> خواندن پیام از قبل فعال است ! ', 1, 'md')
+                end
+              else
+                if database:get('lang:gp:'..msg.chat_id_) then
+                  send(msg.chat_id_, msg.id_, 1, '> MarkRead has been actived !', 1, 'md')
+                else
+                  send(msg.chat_id_, msg.id_, 1, '> خولندن پیام فعال شد !', 1, 'md')
+                end
+                database:set('markread','On')
+              end
+            end
+            if status[2] == "غیرفعال" or status[2] == "off" then
+              if database:get('markread') == "Off" then
+                if database:get('lang:gp:'..msg.chat_id_) then
+                  send(msg.chat_id_, msg.id_, 1, '> MarkRead is now deactive !', 1, 'md')
+                else
+                  send(msg.chat_id_, msg.id_, 1, '> خواندن پیام از قبل غیرفعال میباشد !', 1, 'md')
+                end
+              else
+                if database:get('lang:gp:'..msg.chat_id_) then
+                  send(msg.chat_id_, msg.id_, 1, '> MarkRead leave has been deactived !', 1, 'md')
+                else
+                  send(msg.chat_id_, msg.id_, 1, '> خواندن پیام غیرفعال شد !', 1, 'md')
+                end
+                database:set('markread','Off')
+              end
+            end
+          end
         end
         -----------------------------------------------------------------------------------------------
         if is_momod(msg.sender_user_id_, msg.chat_id_) then
@@ -4072,10 +4109,20 @@ function tdcli_update_callback(data)
             clerken = "Deactive"
             clerkfa = "غیرفعال"
           end
+	    if database:get('markread') == "On" then
+            clerken = "Active"
+            clerkfa = "فعال"
+          elseif database:get('markread') == "Off" then
+            clerken = "Deactive"
+            clerkfa = "غیرفعال"
+          elseif not database:get('markread') then
+            clerken = "Deactive"
+            clerkfa = "غیرفعال"
+          end
           if database:get('lang:gp:'..msg.chat_id_) then
-            send(msg.chat_id_, msg.id_, 1, '> Status : \n\n> Groups : '..gps..'\n\n> Msg received  : '..allmgs..'\n\n> Auto Leave : '..autoleaveen..'\n\n> Clerk : '..clerken, 1, 'md')
+            send(msg.chat_id_, msg.id_, 1, '> Status : \n\n> Groups : '..gps..'\n\n> Msg received  : '..allmgs..'\n\n> Auto Leave : '..autoleaveen..'\n\n> MarkRead Message : '..markreaden..'\n\n> Clerk : '..clerken, 1, 'md')
           else
-            send(msg.chat_id_, msg.id_, 1, '> وضعیت ربات : \n\n> تعداد گروه ها : '..gps..'\n\n> تعداد پیام های دریافتی  : '..allmgs..'\n\n> خروج خودکار : '..autoleavefa..'\n\n> منشی : '..clerkfa, 1, 'md')
+            send(msg.chat_id_, msg.id_, 1, '> وضعیت ربات : \n\n> تعداد گروه ها : '..gps..'\n\n> تعداد پیام های دریافتی  : '..allmgs..'\n\n> خروج خودکار : '..autoleavefa..'\n\n> خواندن پیام : '..markreadfa..'\n\n> منشی : '..clerkfa, 1, 'md')
           end
         end
         ------------------------------------------------------------------------------
