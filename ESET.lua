@@ -3842,7 +3842,7 @@ function tdcli_update_callback(data)
                 if database:get('lang:gp:'..msg.chat_id_) then
                   send(msg.chat_id_, msg.id_, 1, '> MarkRead has been actived !', 1, 'md')
                 else
-                  send(msg.chat_id_, msg.id_, 1, '> خولندن پیام فعال شد !', 1, 'md')
+                  send(msg.chat_id_, msg.id_, 1, '> خواندن پیام فعال شد !', 1, 'md')
                 end
                 database:set('markread','On')
               end
@@ -4110,14 +4110,14 @@ function tdcli_update_callback(data)
             clerkfa = "غیرفعال"
           end
 	    if database:get('markread') == "On" then
-            clerken = "Active"
-            clerkfa = "فعال"
+            markreaden = "Active"
+            markreadfa = "فعال"
           elseif database:get('markread') == "Off" then
-            clerken = "Deactive"
-            clerkfa = "غیرفعال"
+            markreaden = "Deactive"
+            markreadfa = "غیرفعال"
           elseif not database:get('markread') then
-            clerken = "Deactive"
-            clerkfa = "غیرفعال"
+            markreaden = "Deactive"
+            markreadfa = "غیرفعال"
           end
           if database:get('lang:gp:'..msg.chat_id_) then
             send(msg.chat_id_, msg.id_, 1, '> Status : \n\n> Groups : '..gps..'\n\n> Msg received  : '..allmgs..'\n\n> Auto Leave : '..autoleaveen..'\n\n> MarkRead Message : '..markreaden..'\n\n> Clerk : '..clerken, 1, 'md')
