@@ -3832,35 +3832,35 @@ function tdcli_update_callback(data)
           if text:match("^[Mm]arkread (.*)$") then
             local status = {string.match(text, "^([Mm]arkread) (.*)$")}
             if status[2] == "فعال" or status[2] == "on" then
-              if redis:get('markread') == "On" then
-                if redis:get('lang:gp:'..msg.chat_id_) then
+              if database:get('markread') == "On" then
+                if database:get('lang:gp:'..msg.chat_id_) then
                   send(msg.chat_id_, msg.id_, 1, '> MarkRead is now active !', 1, 'md')
                 else
                   send(msg.chat_id_, msg.id_, 1, '> خواندن پیام از قبل فعال است ! ', 1, 'md')
                 end
               else
-                if redis:get('lang:gp:'..msg.chat_id_) then
+                if database:get('lang:gp:'..msg.chat_id_) then
                   send(msg.chat_id_, msg.id_, 1, '> MarkRead has been actived !', 1, 'md')
                 else
                   send(msg.chat_id_, msg.id_, 1, '> خواندن پیام فعال شد !', 1, 'md')
                 end
-                redis:set('markread','On')
+                database:set('markread','On')
               end
             end
             if status[2] == "غیرفعال" or status[2] == "off" then
-              if redis:get('markread') == "Off" then
-                if redis:get('lang:gp:'..msg.chat_id_) then
+              if database:get('markread') == "Off" then
+                if database:get('lang:gp:'..msg.chat_id_) then
                   send(msg.chat_id_, msg.id_, 1, '> MarkRead is now deactive !', 1, 'md')
                 else
                   send(msg.chat_id_, msg.id_, 1, '> خواندن پیام از قبل غیرفعال میباشد !', 1, 'md')
                 end
               else
-                if redis:get('lang:gp:'..msg.chat_id_) then
+                if database:get('lang:gp:'..msg.chat_id_) then
                   send(msg.chat_id_, msg.id_, 1, '> MarkRead leave has been deactived !', 1, 'md')
                 else
                   send(msg.chat_id_, msg.id_, 1, '> خواندن پیام غیرفعال شد !', 1, 'md')
                 end
-                redis:set('markread','Off')
+                database:set('markread','Off')
               end
             end
           end
